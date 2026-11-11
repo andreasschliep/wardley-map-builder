@@ -1,0 +1,31 @@
+# Fictional quiz-size map for exercises. Render it small:
+#
+#   python render_map.py maps/quiz-tea-stall.yaml --size small -o out/quiz-tea-stall.png
+
+title: "Quiz: tea stall at a weekly market (fictional)"
+
+layout:
+  width: 7000
+  height: 5000
+  padding: 400
+
+components:
+  - { id: visitor, name: "Market visitor",       type: activity,  evolution: 0.55, value: 0.95 }
+  - { id: tea,     name: "Cup of specialty tea", type: activity,  evolution: 0.45, value: 0.80 }
+  - { id: blend,   name: "House blend recipe",   type: knowledge, evolution: 0.20, value: 0.60 }
+  - { id: cups,    name: "Paper cups",           type: activity,  evolution: 0.92, value: 0.50 }
+  - { id: leaves,  name: "Loose tea leaves",     type: activity,  evolution: 0.72, value: 0.42 }
+  - { id: kettle,  name: "Kettle",               type: activity,  evolution: 0.86, value: 0.28 }
+  - { id: power,   name: "Electricity",          type: activity,  evolution: 0.96, value: 0.08 }
+
+dependencies:
+  - { from: visitor, to: tea }
+  - { from: tea,     to: blend }
+  - { from: tea,     to: cups }
+  - { from: tea,     to: kettle }
+  - { from: blend,   to: leaves }
+  - { from: kettle,  to: power }
+
+notes:
+  - text: "Quiz: which component should the stall build itself, and which should it simply buy? (Fictional map.)"
+    position: top-right

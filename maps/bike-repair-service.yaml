@@ -1,0 +1,88 @@
+# Fictional example map. The business, its components and their positions
+# are invented for illustration and do not describe any real company.
+#
+#   python render_map.py maps/bike-repair-service.yaml -o out/bike-repair-service.png
+#   cd miro && node render-to-miro.js ../maps/bike-repair-service.yaml --dry-run
+
+title: "Neighbourhood bike-repair service (fictional)"
+
+# Board size in pixels. Used by the Miro renderer and to scale labelOffset.
+layout:
+  width: 9000
+  height: 6500
+  padding: 500
+  componentSize: 28
+
+axes:
+  y:
+    label: "Value Chain"
+    top: "Visible"
+    bottom: "Invisible"
+  x:
+    label: "Evolution"
+    stages:
+      - ["Genesis", ""]
+      - ["Custom-Built", ""]
+      - ["Product (+rental)", ""]
+      - ["Commodity (+utility)", ""]
+
+groups:
+  - name: "Build and learn in-house"
+    bounds: { evolution: [0.04, 0.50], value: [0.46, 0.93] }
+    color: "#dbeafe"
+    borderColor: "#3b82f6"
+  - name: "Buy or rent"
+    bounds: { evolution: [0.72, 0.99], value: [0.03, 0.76] }
+    color: "#dcfce7"
+    borderColor: "#16a34a"
+
+highlights:
+  - { evolution: 0.14, value: 0.58, radius: 0.06, color: "#fecaca" }
+
+components:
+  - { id: cyclist,    name: "Cyclist",                    type: activity,  evolution: 0.55, value: 0.97 }
+  - { id: same_day,   name: "Same-day repair",            type: activity,  evolution: 0.42, value: 0.88 }
+  - { id: van,        name: "Mobile repair van",          type: activity,  evolution: 0.20, value: 0.78 }
+  - { id: booking,    name: "Online booking",             type: activity,  evolution: 0.66, value: 0.82 }
+  - { id: payment,    name: "Card and mobile payment",    type: activity,  evolution: 0.92, value: 0.72 }
+  - { id: diagnosis,  name: "Repair diagnosis",           type: practice,  evolution: 0.40, value: 0.66 }
+  - { id: calendar,   name: "Booking calendar (SaaS)",    type: activity,  evolution: 0.85, value: 0.62 }
+  - { id: ebike,      name: "E-bike battery diagnostics", type: practice,  evolution: 0.14, value: 0.58 }
+  - { id: skills,     name: "Mechanic know-how",          type: knowledge, evolution: 0.45, value: 0.52 }
+  - { id: parts_data, name: "Parts inventory data",       type: data,      evolution: 0.58, value: 0.45 }
+  - { id: parts,      name: "Spare parts",                type: activity,  evolution: 0.80, value: 0.36 }
+  - { id: workshop,   name: "Workshop space",             type: activity,  evolution: 0.62, value: 0.28 }
+  - { id: tools,      name: "Workshop tools",             type: activity,  evolution: 0.76, value: 0.18 }
+  - { id: power,      name: "Electricity",                type: activity,  evolution: 0.95, value: 0.08 }
+
+dependencies:
+  - { from: cyclist,    to: same_day }
+  - { from: cyclist,    to: van }
+  - { from: cyclist,    to: booking }
+  - { from: cyclist,    to: payment }
+  - { from: same_day,   to: diagnosis }
+  - { from: same_day,   to: workshop }
+  - { from: van,        to: diagnosis }
+  - { from: van,        to: parts }
+  - { from: booking,    to: calendar }
+  - { from: diagnosis,  to: ebike }
+  - { from: diagnosis,  to: skills }
+  - { from: diagnosis,  to: parts_data }
+  - { from: ebike,      to: skills }
+  - { from: parts_data, to: parts }
+  - { from: workshop,   to: tools }
+  - { from: workshop,   to: power }
+
+movements:
+  - { from: ebike,   delta: 0.18, label: "standardise as it spreads" }
+  - { from: van,     delta: 0.12, label: "learn from the first routes" }
+  - { from: booking, delta: 0.12, label: "replace own form with a product" }
+
+annotations:
+  - text: "Differentiator: few shops can test e-bike batteries yet"
+    evolution: 0.02
+    value: 0.40
+
+notes:
+  - text: "Fictional example. The business, its components and positions are invented for illustration."
+    position: top-right

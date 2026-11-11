@@ -1,0 +1,22 @@
+{
+  "name": "wardley-map-miro",
+  "version": "1.0.0",
+  "description": "Render Wardley map YAML files onto a Miro board (optional part of wardley-map-builder).",
+  "private": true,
+  "license": "MIT",
+  "author": "Andreas Schliep",
+  "main": "render-to-miro.js",
+  "bin": {
+    "render-to-miro": "render-to-miro.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "dry-run": "node render-to-miro.js ../maps/bike-repair-service.yaml --dry-run"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
